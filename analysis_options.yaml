@@ -1,0 +1,29 @@
+include: package:very_good_analysis/analysis_options.yaml
+analyzer:
+  errors:
+    unintended_html_in_doc_comment: ignore
+    unreachable_from_main: ignore
+    use_late_for_private_fields_and_variables: ignore
+  exclude:
+    - lib/l10n/gen/*
+    - temp/**/*
+linter:
+  rules:
+    public_member_api_docs: false
+    require_trailing_commas: false
+    prefer_relative_imports: true
+    always_use_package_imports: false
+    # prefer_const_constructors: false
+    one_member_abstracts: false
+    sort_constructors_first: false
+    prefer_single_quotes: false
+    lines_longer_than_80_chars: false
+    avoid_positional_boolean_parameters: false
+    sort_pub_dependencies: false
+    avoid_catches_without_on_clauses: false
+    discarded_futures: false
+    flutter_style_todos: false
+
+formatter:
+  trailing_commas: preserve
+  page_width: 300
