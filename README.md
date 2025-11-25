@@ -2,21 +2,8 @@
 
 The better way to use `BlocBuilder` - simplify your `buildWhen` logic with declarative filters.
 
-## Features
-
-- 🎯 **Declarative filters** - Just specify what you care about, not how to compare it
-- 🔄 **Smart comparisons** - Automatically handles primitives, nulls, and collections (List, Map, Set)
-- 📦 **Three variants** - `BuildWhen`, `BuildWhenSome`, and `BuildWhenAll` for different use cases
-- 🚀 **Zero boilerplate** - No more manual `previous.field != current.field` comparisons
-
-## Installation
-
-Add `build_when` to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-   build_when: ^0.1.0
-```
+[![codecov](https://codecov.io/gh/xamantra/build_when/graph/badge.svg?token=DTTgXhtiqs)](https://codecov.io/gh/xamantra/build_when)
+![GitHub License](https://img.shields.io/github/license/xamantra/build_when)
 
 ## Usage
 
@@ -129,7 +116,7 @@ class ExamplePage extends StatelessWidget {
             filter: (state) => state.name,
             builder: (context, state) => Text('Name: ${state.name}'),
           ),
-          
+
           // Rebuild when name OR age changes
           BuildWhenSome<UserBloc, UserState>(
             filterSome: [
