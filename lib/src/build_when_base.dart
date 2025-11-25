@@ -40,6 +40,25 @@ typedef WhenChangeFilter<S> = Object? Function(S state);
 /// )
 /// ```
 class BuildWhen<B extends BlocBase<S>, S> extends StatelessWidget {
+  /// Creates a [BuildWhen] widget.
+  ///
+  /// The [builder] parameter is required and defines the widget to build
+  /// when the filtered value changes.
+  ///
+  /// The [filter] parameter is optional. If provided, the widget will rebuild
+  /// only when the value returned by this function changes. If `null`, the
+  /// widget will rebuild on every state change.
+  ///
+  /// The [bloc] parameter is optional. If not provided, the widget will use
+  /// [BlocBuilder]'s default behavior to find the bloc in the widget tree.
+  ///
+  /// Example:
+  /// ```dart
+  /// BuildWhen<UserBloc, UserState>(
+  ///   filter: (state) => state.name,
+  ///   builder: (context, state) => Text('Name: ${state.name}'),
+  /// )
+  /// ```
   const BuildWhen({
     required this.builder,
     this.filter,
@@ -138,6 +157,28 @@ class BuildWhen<B extends BlocBase<S>, S> extends StatelessWidget {
 ///
 /// This will rebuild if either `name` OR `age` changes.
 class BuildWhenSome<B extends BlocBase<S>, S> extends StatelessWidget {
+  /// Creates a [BuildWhenSome] widget.
+  ///
+  /// The [builder] parameter is required and defines the widget to build
+  /// when any of the filtered values change.
+  ///
+  /// The [filterSome] parameter is optional. If provided, the widget will
+  /// rebuild when **any** of these filters detect a change. If `null` or
+  /// empty, the widget will rebuild on every state change.
+  ///
+  /// The [bloc] parameter is optional. If not provided, the widget will use
+  /// [BlocBuilder]'s default behavior to find the bloc in the widget tree.
+  ///
+  /// Example:
+  /// ```dart
+  /// BuildWhenSome<UserBloc, UserState>(
+  ///   filterSome: [
+  ///     (state) => state.name,
+  ///     (state) => state.age,
+  ///   ],
+  ///   builder: (context, state) => Text('Name: ${state.name}, Age: ${state.age}'),
+  /// )
+  /// ```
   const BuildWhenSome({
     required this.builder,
     this.filterSome,
@@ -237,6 +278,28 @@ class BuildWhenSome<B extends BlocBase<S>, S> extends StatelessWidget {
 ///
 /// This will rebuild only if both `name` AND `age` change.
 class BuildWhenAll<B extends BlocBase<S>, S> extends StatelessWidget {
+  /// Creates a [BuildWhenAll] widget.
+  ///
+  /// The [builder] parameter is required and defines the widget to build
+  /// when all of the filtered values change.
+  ///
+  /// The [filterAll] parameter is optional. If provided, the widget will
+  /// rebuild only when **all** of these filters detect a change. If `null`
+  /// or empty, the widget will rebuild on every state change.
+  ///
+  /// The [bloc] parameter is optional. If not provided, the widget will use
+  /// [BlocBuilder]'s default behavior to find the bloc in the widget tree.
+  ///
+  /// Example:
+  /// ```dart
+  /// BuildWhenAll<UserBloc, UserState>(
+  ///   filterAll: [
+  ///     (state) => state.name,
+  ///     (state) => state.age,
+  ///   ],
+  ///   builder: (context, state) => Text('Name: ${state.name}, Age: ${state.age}'),
+  /// )
+  /// ```
   const BuildWhenAll({
     required this.builder,
     this.filterAll,
