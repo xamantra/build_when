@@ -29,17 +29,6 @@ BuildWhen<UserBloc, UserState>(
 )
 ```
 
-### BuildWhen - Single Filter
-
-Rebuilds only when the specified filter value changes:
-
-```dart
-BuildWhen<UserBloc, UserState>(
-  filter: (state) => state.name,
-  builder: (context, state) => Text('Name: ${state.name}'),
-)
-```
-
 ### BuildWhenSome - Any Filter Changes
 
 Rebuilds when **any** of the specified filters change:
@@ -84,53 +73,28 @@ BuildWhen<UserBloc, UserState>(
 )
 ```
 
-## Complete Example
+## Why not just use BlocSelector?
+
+`BlocSelector` achieves similar filtering, but there's an important difference:
+
+- **BlocSelector** only passes the filtered value to the builder, not the full state
+- **BuildWhen** passes the complete state, giving you access to all state properties
 
 ```dart
-import 'package:build_when/build_when.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// BlocSelector - builder only receives the filtered value
+BlocSelector<UserBloc, UserState, String>(
+  selector: (state) => state.name,
+  builder: (context, name) => Text('Name: $name'), // Only has access to 'name'
+)
 
-class UserState {
-  final String name;
-  final int age;
-
-  UserState({required this.name, required this.age});
-
-  UserState copyWith({String? name, int? age}) {
-    return UserState(
-      name: name ?? this.name,
-      age: age ?? this.age,
-    );
-  }
-}
-
-class ExamplePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          // Rebuild only when name changes
-          BuildWhen<UserBloc, UserState>(
-            filter: (state) => state.name,
-            builder: (context, state) => Text('Name: ${state.name}'),
-          ),
-
-          // Rebuild when name OR age changes
-          BuildWhenSome<UserBloc, UserState>(
-            filterSome: [
-              (state) => state.name,
-              (state) => state.age,
-            ],
-            builder: (context, state) => Text('Name: ${state.name}, Age: ${state.age}'),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// BuildWhen - builder receives the full state
+BuildWhen<UserBloc, UserState>(
+  filter: (state) => state.name,
+  builder: (context, state) => Text('Name: ${state.name}, Age: ${state.age}'), // Full state access
+)
 ```
+
+Use `BuildWhen` when you need access to the full state while only rebuilding on specific changes.
 
 ## License
 
